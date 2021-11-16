@@ -1,23 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useDispatch } from "react-redux";
+import { getSearchId } from "./store";
+import Ticket from "./components/Ticket";
 function App() {
+  const dispatch = useDispatch();
+  fetch("https://front-test.beta.aviasales.ru/search")
+    .then((response) => response.json())
+    .then((searchId) => dispatch(getSearchId(searchId)));
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Ticket />
     </div>
   );
 }
