@@ -1,0 +1,69 @@
+.ticket_box {
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 20px;
+  justify-content: space-between;
+}
+.ticket_box_sort_optimal {
+  width: 500px;
+  margin: 50px auto;
+}
+.flightInfo_airports {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.flightInfo_airports > div:nth-child(3) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flightInfo_airports > div:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stops,
+.time_at_road,
+.info_direction {
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.info_direction {
+  text-align: start;
+}
+.ticket_box_header_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ticket_sort_optimal {
+  display: flex;
+  justify-content: center;
+}
+
+.ticket_sort_optimal > button {
+  padding: 10px;
+  width: 33.333%;
+}
+.price {
+  font-size: 24px;
+  color: rgba(33, 150, 243, 1);
+  font-weight: 600;
+}
+.info_flight_top {
+  color: rgba(160, 176, 185, 1);
+}
+.transfers {
+  padding-right: 2px;
+}
+.info_flight_bottom,
+.transfers {
+  font-weight: 600;
+}
