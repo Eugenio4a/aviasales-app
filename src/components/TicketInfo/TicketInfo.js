@@ -1,5 +1,7 @@
 import React from "react";
+
 import styles from "../TicketInfo/TicketInfo.module.css";
+
 export default function TicketInfo({ ticketsInfo }) {
   return (
     <div className={styles.ticket_box_sort_optimal}>
