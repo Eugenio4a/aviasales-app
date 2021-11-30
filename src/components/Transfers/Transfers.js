@@ -9,8 +9,21 @@ export default function Transfers() {
 
   // const fransfersRenove = transfersInfo.includes();
   // console.log(fransfersRenove);
+  // const addedCheckbox = transfersInfo.find((info) => info === info.value);
+
   function addAndDeleteTransfersInfo() {}
-  console.log(transfersInfo);
+  // function addAndDeleteFromFavorites() {
+  //   if (!isFavorite) {
+  //     let newFavorite = [...favoriteJokesArr, joke];
+  //     localStorage.setItem("favJoke", JSON.stringify(newFavorite));
+  //     return dispatch(favoriteJokes(newFavorite));
+  //   }
+
+  //   let newFavorite = favoriteJokesArr.filter((jokes) => jokes.id !== joke.id);
+
+  //   localStorage.setItem("favJoke", JSON.stringify(newFavorite));
+  //   dispatch(favoriteJokes(newFavorite));
+  // }
   return (
     <div className={styles.transfers_filter_box}>
       <form className={styles.transfers_filter_form}>

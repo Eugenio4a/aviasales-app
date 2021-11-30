@@ -6,6 +6,11 @@ export default function TicketInfo({ ticketsInfo }) {
   const transfersInfo = useSelector((state) => state.transfersFilter);
   console.log(transfersInfo);
 
+  function filterByStops() {
+    if (transfersInfo.include("noTransfers")) {
+      return true;
+    }
+  }
   return (
     <div className={styles.ticket_box_sort_optimal}>
       <div className={styles.ticket_sort_optimal}>
@@ -15,9 +20,12 @@ export default function TicketInfo({ ticketsInfo }) {
       </div>
       {ticketsInfo !== undefined
         ? ticketsInfo
-            .filter((ticket) =>
-              ticket.segments.map((stops) => stops.stops.length === 0)
-            )
+            .filter((ticket) => {
+              return transfersInfo.includes("noTransfers")
+                ? ticket.segments[0].stops.length === 0 &&
+                    ticket.segments[1].stops.length === 0
+                : true;
+            })
             .map((ticket) => {
               function price() {
                 const priceFull = String(ticket.price);
