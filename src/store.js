@@ -3,12 +3,14 @@ import { createStore } from "redux";
 const SEARCH_ID = "searchId";
 const TICKETS_INFO = "ticketsInfo";
 const TRANSFERS_FILTER = "transfersFilter";
+const TICKETS_FILTER = "ticketsFilter";
 
 function reducer(
   state = {
     searchId: [],
     ticketsInfo: [],
     transfersFilter: [],
+    ticketsFilter: [],
   },
   action
 ) {
@@ -37,6 +39,12 @@ function reducer(
         ),
       };
     }
+    case TICKETS_FILTER: {
+      return {
+        ...state,
+        ticketsFilter: action.payload,
+      };
+    }
     default:
       return state;
   }
@@ -51,6 +59,9 @@ export function getTicketsInfo(payload) {
 
 export function getTransfersInfo(payload) {
   return { type: TRANSFERS_FILTER, payload };
+}
+export function ticketsFilter(payload) {
+  return { type: TICKETS_FILTER, payload };
 }
 
 const store = createStore(reducer);

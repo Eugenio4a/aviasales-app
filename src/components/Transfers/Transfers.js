@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import styles from "./Transfers.module.css";
 import { getTransfersInfo } from "../../store";
 export default function Transfers() {
-  const ticketsInfo = useSelector((state) => state.ticketsInfo.tickets);
-  const transfersInfo = useSelector((state) => state.transfersFilter);
+  // const ticketsInfo = useSelector((state) => state.ticketsInfo.tickets);
+  // const transfersInfo = useSelector((state) => state.transfersFilter);
   const dispatch = useDispatch();
 
   return (
     <div className={styles.transfers_filter_box}>
       <form className={styles.transfers_filter_form}>
+        <legend className={styles.legend_form}>Количество пересадок</legend>
         <label htmlFor="all">
           <input
             id="all"

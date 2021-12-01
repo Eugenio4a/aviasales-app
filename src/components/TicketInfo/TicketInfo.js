@@ -1,10 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "../TicketInfo/TicketInfo.module.css";
+import { ticketsFilter } from "../../store";
 
 export default function TicketInfo({ ticketsInfo }) {
   const transfersInfo = useSelector((state) => state.transfersFilter);
-  console.log(transfersInfo);
+  const ticketsFilterFromStore = useSelector((state) => state.ticketsFilter);
+  const dispatch = useDispatch();
+
   function filterByStops(ticket) {
     if (transfersInfo.includes("noTransfers")) {
       return (
@@ -28,16 +31,40 @@ export default function TicketInfo({ ticketsInfo }) {
       );
     } else return true;
   }
+
+  function filterTickets(a, b) {
+    if (ticketsFilterFromStore === "cheap") {
+      return a.price - b.price;
+    } else if (ticketsFilterFromStore === "fast") {
+      return (
+        a.segments[0].duration - b.segments[0].duration ||
+        a.segments[1].duration - b.segments[1].duration
+      );
+    } else if (ticketsFilterFromStore === "opti") {
+      return (
+        a.segments[0].stops.length - b.segments[0].stops.length ||
+        a.segments[1].stops.length - b.segments[1].stops.length
+      );
+    }
+  }
+
   return (
     <div className={styles.ticket_box_sort_optimal}>
       <div className={styles.ticket_sort_optimal}>
-        <button>Самый дешевый</button>
-        <button>Самый быстрый</button>
-        <button>Оптимальный</button>
+        <button onClick={() => dispatch(ticketsFilter("cheap"))}>
+          Самый дешевый
+        </button>
+        <button onClick={() => dispatch(ticketsFilter("fast"))}>
+          Самый быстрый
+        </button>
+        <button onClick={() => dispatch(ticketsFilter("opti"))}>
+          Оптимальный
+        </button>
       </div>
       {ticketsInfo !== undefined
         ? ticketsInfo
             .filter((ticket) => filterByStops(ticket))
+            .sort((a, b) => filterTickets(a, b))
             .map((ticket) => {
               function price() {
                 const priceFull = String(ticket.price);
@@ -61,7 +88,7 @@ export default function TicketInfo({ ticketsInfo }) {
                   <div className={styles.flight_info_box}>
                     {ticket.segments.map((flight) => {
                       function getFlightTime(timesFlight) {
-                        console.log(timesFlight);
+                        // console.log(timesFlight);
                         return timesFlight.map((time) => {
                           const date = new Date(time.date);
                           if (date.getHours() < 10 && date.getMinutes() < 10) {
