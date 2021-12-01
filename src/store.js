@@ -21,7 +21,21 @@ function reducer(
     }
 
     case TRANSFERS_FILTER: {
-      return { ...state, transfersFilter: action.payload };
+      const addedFilter = state.transfersFilter.find(
+        (transfer) => transfer === action.payload
+      );
+      if (!addedFilter) {
+        return {
+          ...state,
+          transfersFilter: [...state.transfersFilter, action.payload],
+        };
+      }
+      return {
+        ...state,
+        transfersFilter: state.transfersFilter.filter(
+          (transfer) => transfer !== action.payload
+        ),
+      };
     }
     default:
       return state;

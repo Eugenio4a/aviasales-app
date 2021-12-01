@@ -5,11 +5,28 @@ import styles from "../TicketInfo/TicketInfo.module.css";
 export default function TicketInfo({ ticketsInfo }) {
   const transfersInfo = useSelector((state) => state.transfersFilter);
   console.log(transfersInfo);
-
-  function filterByStops() {
-    if (transfersInfo.include("noTransfers")) {
-      return true;
-    }
+  function filterByStops(ticket) {
+    if (transfersInfo.includes("noTransfers")) {
+      return (
+        ticket.segments[0].stops.length === 0 &&
+        ticket.segments[1].stops.length === 0
+      );
+    } else if (transfersInfo.includes("oneTransfer")) {
+      return (
+        ticket.segments[0].stops.length === 1 &&
+        ticket.segments[1].stops.length === 1
+      );
+    } else if (transfersInfo.includes("twoTransfer")) {
+      return (
+        ticket.segments[0].stops.length === 2 &&
+        ticket.segments[1].stops.length === 2
+      );
+    } else if (transfersInfo.includes("threeTransfer")) {
+      return (
+        ticket.segments[0].stops.length === 3 &&
+        ticket.segments[1].stops.length === 3
+      );
+    } else return true;
   }
   return (
     <div className={styles.ticket_box_sort_optimal}>
@@ -20,12 +37,7 @@ export default function TicketInfo({ ticketsInfo }) {
       </div>
       {ticketsInfo !== undefined
         ? ticketsInfo
-            .filter((ticket) => {
-              return transfersInfo.includes("noTransfers")
-                ? ticket.segments[0].stops.length === 0 &&
-                    ticket.segments[1].stops.length === 0
-                : true;
-            })
+            .filter((ticket) => filterByStops(ticket))
             .map((ticket) => {
               function price() {
                 const priceFull = String(ticket.price);
@@ -49,6 +61,7 @@ export default function TicketInfo({ ticketsInfo }) {
                   <div className={styles.flight_info_box}>
                     {ticket.segments.map((flight) => {
                       function getFlightTime(timesFlight) {
+                        console.log(timesFlight);
                         return timesFlight.map((time) => {
                           const date = new Date(time.date);
                           if (date.getHours() < 10 && date.getMinutes() < 10) {

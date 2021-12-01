@@ -7,23 +7,6 @@ export default function Transfers() {
   const transfersInfo = useSelector((state) => state.transfersFilter);
   const dispatch = useDispatch();
 
-  // const fransfersRenove = transfersInfo.includes();
-  // console.log(fransfersRenove);
-  // const addedCheckbox = transfersInfo.find((info) => info === info.value);
-
-  function addAndDeleteTransfersInfo() {}
-  // function addAndDeleteFromFavorites() {
-  //   if (!isFavorite) {
-  //     let newFavorite = [...favoriteJokesArr, joke];
-  //     localStorage.setItem("favJoke", JSON.stringify(newFavorite));
-  //     return dispatch(favoriteJokes(newFavorite));
-  //   }
-
-  //   let newFavorite = favoriteJokesArr.filter((jokes) => jokes.id !== joke.id);
-
-  //   localStorage.setItem("favJoke", JSON.stringify(newFavorite));
-  //   dispatch(favoriteJokes(newFavorite));
-  // }
   return (
     <div className={styles.transfers_filter_box}>
       <form className={styles.transfers_filter_form}>
@@ -31,9 +14,7 @@ export default function Transfers() {
           <input
             id="all"
             type="checkbox"
-            onChange={() =>
-              dispatch(getTransfersInfo([...transfersInfo, "all"]))
-            }
+            onChange={() => dispatch(getTransfersInfo("all"))}
           ></input>
           Все
         </label>
@@ -41,9 +22,7 @@ export default function Transfers() {
           <input
             id="noTransfers"
             type="checkbox"
-            onChange={() =>
-              dispatch(getTransfersInfo([...transfersInfo, "noTransfers"]))
-            }
+            onChange={() => dispatch(getTransfersInfo("noTransfers"))}
           ></input>
           Без пересадок
         </label>
@@ -51,9 +30,7 @@ export default function Transfers() {
           <input
             id="oneTransfer"
             type="checkbox"
-            onChange={() =>
-              dispatch(getTransfersInfo([...transfersInfo, "oneTransfer"]))
-            }
+            onChange={() => dispatch(getTransfersInfo("oneTransfer"))}
           ></input>
           1 пересадка
         </label>
@@ -61,9 +38,7 @@ export default function Transfers() {
           <input
             id="twoTransfer"
             type="checkbox"
-            onChange={() =>
-              dispatch(getTransfersInfo([...transfersInfo, "twoTransfer"]))
-            }
+            onChange={() => dispatch(getTransfersInfo("twoTransfer"))}
           ></input>
           2 пересадки
         </label>
@@ -71,9 +46,7 @@ export default function Transfers() {
           <input
             id="threeTransfer"
             type="checkbox"
-            onChange={() =>
-              dispatch(getTransfersInfo([...transfersInfo, "threeTransfer"]))
-            }
+            onChange={() => dispatch(getTransfersInfo("threeTransfer"))}
           ></input>
           3 пересадки
         </label>
