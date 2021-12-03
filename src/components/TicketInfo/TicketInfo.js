@@ -63,6 +63,7 @@ export default function TicketInfo({ ticketsInfo }) {
       </div>
       {ticketsInfo !== undefined
         ? ticketsInfo
+            // .slice(0, 1)
             .filter((ticket) => filterByStops(ticket))
             .sort((a, b) => filterTickets(a, b))
             .map((ticket) => {
@@ -73,6 +74,19 @@ export default function TicketInfo({ ticketsInfo }) {
                   /(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g,
                   "$1" + separator
                 );
+              }
+              function getTimeDuration(mins) {
+                let hours = Math.trunc(mins / 60);
+                let minutes = mins % 60;
+                return hours + "ч " + minutes + "м";
+              }
+              function getFlightTime(flight) {
+                const date = new Date(flight.date);
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+                if (hours < 10 && minutes < 10) {
+                  return "0" + hours + ":" + "0" + minutes;
+                } else return date.getHours() + ":" + date.getMinutes();
               }
               return (
                 <div className={styles.ticket_box}>
@@ -87,25 +101,6 @@ export default function TicketInfo({ ticketsInfo }) {
                   </div>
                   <div className={styles.flight_info_box}>
                     {ticket.segments.map((flight) => {
-                      function getFlightTime(timesFlight) {
-                        // console.log(timesFlight);
-                        return timesFlight.map((time) => {
-                          const date = new Date(time.date);
-                          if (date.getHours() < 10 && date.getMinutes() < 10) {
-                            let hours = "0" + date.getHours();
-                            let minutes = "0" + date.getMinutes();
-                            return hours + ":" + minutes;
-                          } else
-                            return date.getHours() + ":" + date.getMinutes();
-                        });
-                      }
-
-                      function getTimeDuration(mins) {
-                        let hours = Math.trunc(mins / 60);
-                        let minutes = mins % 60;
-                        return hours + "ч " + minutes + "м";
-                      }
-
                       return (
                         <section className={styles.flightInfo_airports}>
                           <div className={styles.info_direction}>
@@ -113,7 +108,7 @@ export default function TicketInfo({ ticketsInfo }) {
                               {flight.origin}—{flight.destination}
                             </span>
                             <div className={styles.info_flight_bottom}>
-                              {getFlightTime(ticket.segments)}
+                              {getFlightTime(flight)}
                             </div>
                           </div>
                           <div className={styles.time_at_road}>
